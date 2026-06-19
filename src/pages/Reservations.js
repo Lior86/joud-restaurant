@@ -13,6 +13,7 @@ export default function Reservations() {
   const [form, setForm] = useState(INITIAL);
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  const [submittedData, setSubmittedData] = useState(null);
 
   const set = (field, val) => {
     setForm(f => ({ ...f, [field]: val }));
@@ -44,8 +45,11 @@ export default function Reservations() {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(form),
   });
-  if (response.ok) {
-    setSubmitted(true);
+ if (response.ok) {
+  setSubmittedData({...form});
+  setSubmitted(true);
+  setForm(INITIAL);
+}
   
   }
 };
@@ -79,12 +83,12 @@ export default function Reservations() {
                 <h2 className="res-success__title">Your reservation is confirmed</h2>
                 <div className="gold-rule" style={{ margin: '1.5rem auto' }} />
                 <p className="res-success__detail">
-                  Thank you, {form.firstName}. We're expecting you on{' '}
-                  <strong>{new Date(form.date + 'T12:00').toLocaleDateString('en-CA', { weekday: 'long', month: 'long', day: 'numeric' })}</strong>{' '}
-                  at <strong>{form.time}</strong> for <strong>{form.guests}</strong>.
+                  Thank you, {submittedData?.firstName}. We're expecting you on{' '}
+                  <strong>{new Date(submittedData?.date + 'T12:00').toLocaleDateString('en-CA', { weekday: 'long', month: 'long', day: 'numeric' })}</strong>{' '}
+                  at <strong>{submittedData?.time}</strong> for <strong>{submittedData?.guests}</strong>.
                 </p>
                 <p className="res-success__sub">
-                  A confirmation has been sent to {form.email}
+                  A confirmation has been sent to {submittedData?.email}
                 </p>
                 <button className="btn-outline" style={{ marginTop: '2rem' }} onClick={() => { setForm(INITIAL); setSubmitted(false); }}>
                   Make another reservation
