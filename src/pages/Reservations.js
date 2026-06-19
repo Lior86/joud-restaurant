@@ -32,15 +32,23 @@ export default function Reservations() {
     return e;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const errs = validate();
-    if (Object.keys(errs).length > 0) {
-      setErrors(errs);
-      return;
-    }
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+  const errs = validate();
+  if (Object.keys(errs).length > 0) {
+    setErrors(errs);
+    return;
+  }
+  const response = await fetch('https://formspree.io/f/xeewykwq', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(form),
+  });
+  if (response.ok) {
     setSubmitted(true);
-  };
+    setForm(INITIAL);
+  }
+};
 
   const today = new Date().toISOString().split('T')[0];
 
