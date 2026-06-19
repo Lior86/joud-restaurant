@@ -33,6 +33,7 @@ export default function Reservations() {
   };
 
  const handleSubmit = async (e) => {
+  if (e && e.preventDefault) e.preventDefault();
   e.preventDefault();
   const errs = validate();
   if (Object.keys(errs).length > 0) {
@@ -172,7 +173,7 @@ export default function Reservations() {
                   {errors.agreed && <span className="field__error" style={{ display: 'block', marginTop: '0.5rem' }}>{errors.agreed}</span>}
                 </div>
 
-                <button type="submit" className="btn-primary res-form__submit">
+                <button type="button" onClick={handleSubmit} className="btn-primary res-form__submit">
                   Confirm Reservation
                 </button>
               </motion.form>
