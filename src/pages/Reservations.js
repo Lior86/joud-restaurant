@@ -34,7 +34,6 @@ export default function Reservations() {
 
  const handleSubmit = async (e) => {
   if (e && e.preventDefault) e.preventDefault();
-  e.preventDefault();
   const errs = validate();
   if (Object.keys(errs).length > 0) {
     setErrors(errs);
