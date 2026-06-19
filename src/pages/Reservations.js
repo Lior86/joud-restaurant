@@ -46,7 +46,7 @@ export default function Reservations() {
   });
   if (response.ok) {
     setSubmitted(true);
-    setForm(INITIAL);
+  
   }
 };
 
