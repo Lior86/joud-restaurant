@@ -52,7 +52,6 @@ export default function Reservations() {
 }
   
   }
-};
 
   const today = new Date().toISOString().split('T')[0];
 
